@@ -7,6 +7,7 @@ import yaml
 import json
 from datetime import date, datetime
 os.sys.path.insert(0, os.path.abspath('../../'))
+
 from configs import arch_gym_configs
 
 from absl import flags
@@ -144,8 +145,6 @@ def run_task(task):
             "--reward_formulation=" + str(reward_formulation)
         print("Shell Command", cmd)
         
-        os.system(cmd)
-        
     # Run BO
     elif algo == "bo":
         print("train_bo_DRAMSys")
@@ -181,7 +180,7 @@ def run_task(task):
     else:
         print("Unsupport task formulation!!")
         raise NotImplementedError
-
+    os.system(cmd)
 def main(_):
 
     taskList = []
