@@ -1,0 +1,1 @@
+docker build -t dram_arch_gym -f Dockerfile .

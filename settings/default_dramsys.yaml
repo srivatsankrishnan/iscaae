@@ -1,0 +1,12 @@
+{DeepSwarm: {aco: {ant_count: 10, greediness: 0.5, pheromone: {decay: 0.1, evaporation: 0.5,
+        start: 0.1, verbose: false}}, max_depth: 100, metrics: loss, reuse_patience: 1,
+    save_folder: null}, Nodes: {ArchParamsNode: {attributes: {Arbiter: [Simple, Fifo,
+          Reorder], MaxActiveTransactions: [1, 2, 4, 8, 16, 32, 64, 128], PagePolicy: [
+          Open, OpenAdaptive, Closed, ClosedAdaptive], RefreshMaxPostponed: [1, 2,
+          3, 4, 5, 6, 7, 8], RefreshMaxPulledin: [1, 2, 3, 4, 5, 6, 7, 8], RefreshPolicy: [
+          NoRefresh, AllBank], RequestBufferSize: [1, 2, 3, 4, 5, 6, 7, 8], RespQueue: [
+          Fifo, Reorder], Scheduler: [Fifo, FrFcfsGrp, FrFcfs], SchedulerBuffer: [
+          Bankwise, ReadWrite, Shared]}, transitions: {OutputNode: 1.0}, type: ArchParams},
+    InputNode: {attributes: {name: [Input], value: [None]}, transitions: {ArchParamsNode: 1.0},
+      type: Input}, OutputNode: {attributes: {name: [Output], value: [None]}, transitions: {},
+      type: Output}}}

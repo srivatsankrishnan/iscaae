@@ -1,0 +1,1 @@
+{"mcconfig": {"PagePolicy": "Open", "Scheduler": "FrFcfs", "SchedulerBuffer": "Bankwise", "RequestBufferSize": 7, "CmdMux": "Oldest", "RespQueue": "Reorder", "RefreshPolicy": "AllBank", "RefreshMaxPostponed": 6, "RefreshMaxPulledin": 6, "PowerDownPolicy": "NoPowerDown", "Arbiter": "Simple", "MaxActiveTransactions": 4}}
