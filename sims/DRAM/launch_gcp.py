@@ -36,6 +36,24 @@ flags.DEFINE_float('prob_mutation', 0.1, 'Probability of mutation.')
 # Random Walk
 flags.DEFINE_integer('num_episodes', 1, 'Number of episodes')
 
+# RL
+# RL algorithm type (ppo, sac)
+flags.DEFINE_string('rl_algo', 'ppo', 'RL algorithm')
+# RL formulation
+flags.DEFINE_string('rl_form', 'sa', 'RL formulation')
+
+
+# Scale rewards
+flags.DEFINE_string('reward_scaling', 'false', 'Scale rewards')
+
+
+
+flags.DEFINE_integer('eval_every', 50, 'Number of evaluation steps.')
+flags.DEFINE_integer('eval_episodes', 10, 'Number of evaluation episode.')
+flags.DEFINE_integer('seed', 0, 'Random seed.')
+flags.DEFINE_float('learning_rate', 2e-5, 'Learning rate.')
+flags.DEFINE_float('entropy_cost', 0.1, 'Entropy cost.')
+flags.DEFINE_bool('use_envlogger', False, 'Use enlogger.')
 
 def update_sim_configs(sim_config, dram_sys_workload):
     # read a json file
@@ -120,6 +138,20 @@ def run_task(task):
         summary_dir = task["summary_dir"]
         reward_formulation = task["reward_formulation"]
         unqiue_ids = [algo, workload, str(num_iter), date]
+    elif (algo == "rl"):
+        rl_algo = task["rl_algo"]
+        rl_form = task["rl_form"]
+        reward_scaling = task["reward_scaling"]
+        summary_dir = task["summary_dir"]
+        reward_formulation = task["reward_formulation"]
+        learning_rate = task["learning_rate"]
+        num_iter = task["num_iter"]
+        eval_every = task["eval_every"]
+        eval_episodes = task["eval_episodes"]
+        use_envlogger = task["use_envlogger"]
+        seed = task["seed"]
+
+        unqiue_ids = [algo, workload, rl_algo, rl_form, reward_scaling, date]
     
     
     # Run algo 
@@ -177,9 +209,25 @@ def run_task(task):
             "--summary_dir=" + str(summary_dir) + " "\
             "--reward_formulation=" + str(reward_formulation) 
         print("Shell Command", cmd)
+    elif algo == "rl":
+        cmd = "python train_single_agent.py " + \
+            "--rl_algo={} ".format(rl_algo) + \
+            "--dram_trace={} ".format(workload) + \
+            "--rl_form={} ".format(rl_form) + \
+            "--reward_form={} ".format(reward_formulation) + \
+            "--reward_scale={} ".format(reward_scaling) + \
+            "--summarydir={} ".format(summary_dir) + \
+            "--num_steps={} ".format(num_iter) + \
+            "--eval_every={} ".format(eval_every) + \
+            "--eval_episodes={} ".format(eval_episodes) + \
+            "--learning_rate={} ".format(learning_rate) + \
+            "--seed={} ".format(int(seed)) + \
+            "--use_envlogger={}".format(use_envlogger)
+        print("Shell Command", cmd)
     else:
         print("Unsupport task formulation!!")
         raise NotImplementedError
+    
     os.system(cmd)
 def main(_):
 
@@ -219,6 +267,22 @@ def main(_):
                 "prob_mut": FLAGS.prob_mutation,
                 'summary_dir': FLAGS.summary_dir,
                 'reward_formulation': FLAGS.reward_formulation}
+        taskList.append(task)
+    elif FLAGS.algo == "rl":
+        task = {"algo": FLAGS.algo,
+                "rl_algo": FLAGS.rl_algo,
+                "rl_form": FLAGS.rl_form,
+                "workload": FLAGS.workload, 
+                "num_iter": FLAGS.num_iter, 
+                'summary_dir': FLAGS.summary_dir,
+                'reward_formulation': FLAGS.reward_formulation,
+                'reward_scaling': FLAGS.reward_scaling,
+                'eval_every': FLAGS.eval_every,
+                'eval_episodes': FLAGS.eval_episodes,
+                'learning_rate': FLAGS.learning_rate,
+                'seed': FLAGS.seed,
+                'use_envlogger': FLAGS.use_envlogger,
+                }
         taskList.append(task)
     else:
         print(" Algorithm not supported!!")
