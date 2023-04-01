@@ -18,11 +18,11 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('algo', 'random_walk', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'random.stl', 'Which workload to run')
 flags.DEFINE_string('summary_dir', '', 'Directory to store the summary')
-flags.DEFINE_integer('num_iter', 100, 'Number of iterations')
+flags.DEFINE_integer('num_iter', 250000, 'Number of iterations')
 flags.DEFINE_string('reward_formulation', 'power', 'Which reward formulation to use')
 
 # ACO
-flags.DEFINE_integer('ant_count', 10, 'Number of ants')
+flags.DEFINE_integer('ant_count', 64, 'Number of ants')
 flags.DEFINE_float('evaporation', 0.5, 'Evaporation rate')
 flags.DEFINE_float('greediness', 0.5, 'Greedy rate')
 
@@ -30,7 +30,7 @@ flags.DEFINE_float('greediness', 0.5, 'Greedy rate')
 flags.DEFINE_integer('rand_state', 0, 'Random state')
 
 # GA
-flags.DEFINE_integer('num_agents', 10, 'Number of agents')
+flags.DEFINE_integer('num_agents', 64, 'Number of agents')
 flags.DEFINE_float('prob_mutation', 0.1, 'Probability of mutation.')
 
 # Random Walk
